@@ -11,7 +11,7 @@ html, body {
   top:0;
   left:0;
   z-index: 1;
-  width:25%;
+  width:0%;
   height:100%;
   background: black;
   display:flex;
@@ -32,12 +32,11 @@ html, body {
   font-family: Roboto;
 }
 
-.closingBtn{
+.closingNavBtn{
   position:absolute;
   top: 0;
   right: 0;
 }
-
 
 .quoteBtnContainer{
   position: relative;
@@ -51,6 +50,12 @@ html, body {
   margin-top: 1%;
   right:2%;
   bottom:4%;
+}
+
+.openNavButton{
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 #mainContainer{

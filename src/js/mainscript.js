@@ -28,8 +28,12 @@ $(document).ready(function(){
         }
     });
 
-    $(".closingBtn").click(function(){
+    $(".closingNavBtn").click(function(){
         $(".sideNav").css("width","0");
+    });
+
+    $(".openNavBtn").click(function(){
+        $(".sideNav").css("width","25%");
     });
 });
 
