@@ -27,6 +27,10 @@ $(document).ready(function(){
             getProgrammingQuote();
         }
     });
+
+    $(".closingBtn").click(function(){
+        $(".sideNav").css("width","0");
+    });
 });
 
 //+++++++++++++++++++++ Helper functions +++++++++++++++++++++//
