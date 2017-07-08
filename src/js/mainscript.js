@@ -1,9 +1,24 @@
 $(document).ready(function(){
 
+    
     var author = undefined;
     var quote = undefined;
     var quoteLink = undefined;
-    var random = false;
+    var randomQuotes = "Random Quotes";
+    var programmingQuotes = "Programming Quotes";
+    var random = true;
+
+    $("#section").text(randomQuotes);
+
+    $("#programmingQuotes").click(function(){
+        $("#section").text(programmingQuotes);
+        random = false;
+    })
+
+    $("#randomQuotes").click(function(){
+        $("#section").text(randomQuotes);
+        random = true;
+    })
 
     $(".quoteBtn").click(function(){
         if(random){
@@ -12,8 +27,10 @@ $(document).ready(function(){
             getProgrammingQuote();
         }
     });
-    
-    function setQuote(text){
+});
+
+//+++++++++++++++++++++ Helper functions +++++++++++++++++++++//
+function setQuote(text){
         console.log(text);
         $("#quoteContainer p").text(text);   
     }
@@ -88,6 +105,4 @@ $(document).ready(function(){
             type:"GET"
         });
     }
-
-});
 

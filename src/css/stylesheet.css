@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 html, body {
   height:100%;
   width:100%;
@@ -24,7 +27,8 @@ html, body {
   padding:2%;
   color: white;
   display: block;
-  transition: 0.3s
+  transition: 0.3s;
+  font-family: Roboto;
 }
 
 .closingBtn{
@@ -67,4 +71,10 @@ html, body {
   background: white;
   border-radius: 25px;
   position: relative;
+  font-family: Roboto;
+}
+
+#section{
+  font-family: Pacifico;
+  font-style: italic;
 }
