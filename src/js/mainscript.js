@@ -1,11 +1,60 @@
 $(document).ready(function(){
 
-    $(".quoteBtn").click(getQuote());
+    var author = undefined;
+    var quote = undefined;
+    var quoteLink = undefined;
+    var random = false;
+
+    $(".quoteBtn").click(function(){
+        if(random){
+            getRandomQuote();
+        }else{
+            getProgrammingQuote();
+        }
+    });
     
-    function getQuote(){
-        var vAuthor = undefined;
-        var vQuote = undefined;
-        console.log("function started");
+    function setQuote(text){
+        console.log(text);
+        $("#quoteContainer p").text(text);   
+    }
+
+    function getRandomQuote(){
+        $.ajax({
+            url:"http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en",
+            data:{
+                format: "json"
+            },
+            dataType:"json",
+            success: function(data){
+
+                if(!jQuery.isEmptyObject(data)){
+                    if(data.hasOwnProperty("quoteText")){
+                        quote = data["quoteText"];
+                    }else{
+                        quote = "Sorry no Quote for you!";
+                    }
+                    if(data.hasOwnProperty("quoteAuthor")){
+                        author = data["quoteAuthor"];
+                    }else{
+                        author = "No author";
+                    }
+                    if(data.hasOwnProperty("quoteLink")){
+                        quoteLink = data["quoteLink"];
+                    }
+
+                    setQuote(quote);
+                }else{
+                    alert("Sorry, something went wrong! Please retry");
+                }
+            },
+            error: function(){
+                alert("Sorry, but something went wrong with the API");
+            },
+            type:"GET"
+        })
+    }
+
+    function getProgrammingQuote(){
         $.ajax({
             url:"http://quotes.stormconsultancy.co.uk/random.json",
             data:{
@@ -13,39 +62,25 @@ $(document).ready(function(){
             },
             dataType: "jsonp",
             success: function(data){
-                console.log("success");
                 if(!jQuery.isEmptyObject(data)){
                     if(data.hasOwnProperty("author")){
-                        vAuthor = data["author"];
+                        author = data["author"];
                     }else{
-                        vAuthor = "no author";
+                        author = "no author";
                     }
-                    console.log(vAuthor);
                     if(data.hasOwnProperty("quote")){
-                        vQuote = data["quote"];
+                        quote = data["quote"];
                     }else{
-                        vQuote = "no quote for you";
+                        quote = "no quote for you";
                     }
-                    console.log(vQuote);
+                    if(data.hasOwnProperty("permalink")){
+                        quoteLink = data["permalink"];
+                    }
+
+                    setQuote(quote);
                 }else{
-                    alert("Sorry, something went wrong! Please retry")
+                    alert("Sorry, something went wrong! Please retry");
                 }
-                /*if(data.length > 0){
-                    if(data.hasOwnProperty(author)){
-                        vAuthor = author;
-                    }else{
-                        vAuthor = "no author";
-                    }
-                    console.log(author);
-                    if(data.hasOwnProperty(quote)){
-                        vQuote = quote;
-                    }else{
-                        vQuote = "no quote for you";
-                    }
-                    console.log(quote);
-                }else{
-                    alert("Sorry, but your data seems to be null");
-                }*/
             },
             error: function() {
                 alert("Sorry, but something went wrong");

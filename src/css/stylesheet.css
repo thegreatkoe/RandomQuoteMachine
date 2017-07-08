@@ -43,6 +43,7 @@ html, body {
   position: absolute;
   background-color:black;
   color: white; 
+  margin-top: 1%;
   right:2%;
   bottom:4%;
 }
