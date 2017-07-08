@@ -1,23 +1,68 @@
 html, body {
-  min-height:100%;
-  min-width:100%;
+  height:100%;
+  width:100%;
+}
+
+.sideNav{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index: 1;
+  width:25%;
+  height:100%;
+  background: black;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+}
+
+.sideNav a{
+  text-decoration: none;
+  text-align: center;
+  font-size: 2em;
+  padding:2%;
+  color: white;
+  display: block;
+  transition: 0.3s
+}
+
+.closingBtn{
+  position:absolute;
+  top: 0;
+  right: 0;
+}
+
+
+.quoteBtnContainer{
+  position: relative;
+  height:5%;
+  width:100%;
+}
+.quoteBtn{
+  position: absolute;
+  background-color:black;
+  color: white; 
+  right:2%;
+  bottom:4%;
 }
 
 #mainContainer{
-  min-height: 100%;
-  min-width: 100%;
+  height: 100%;
+  width: 100%;
   background-color:#908988;
-  position: relative;
+  display:flex;
+  flex-direction: column;     /* stack flex items vertically */
+  justify-content: center;    /* center items vertically, in this case */
+  align-items: center;  
 }
 
 #quoteContainer{
-  margin-left: 17%;
-  margin-right: 17%;
-  margin-top:17%;
-  margin-bottom: 17%;
+  display:block;
+  margin: 0 auto;
   padding: 1%;
-  min-width: 66%;
-  min-height: 33%;
+  width: 50%;
+  height: auto;
   background: white;
   border-radius: 25px;
   position: relative;

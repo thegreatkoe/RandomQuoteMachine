@@ -6,21 +6,39 @@
     <link rel="stylesheet"
     href="../css/stylesheet.css"> 
 
-    <!-- Latest compiled and minified CSS -->
+    <!-- Latest compiled and minified CSS  of Bootstrap-->
     <link rel="stylesheet" 
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
     crossorigin="anonymous">
 
+    <!-- JQuery-link from CDN -->
+    <script   src="https://code.jquery.com/jquery-3.2.1.js"   
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="   
+    crossorigin="anonymous"></script>
+
+    <!-- local Script file -->
+    <script src="../js/mainscript.js"></script>
+
 </head>
 <body>
+    <div class="sideNav">
+        <a class="closingBtn" href="#"><span class="glyphicon glyphicon-remove"></span></a>
+        <a href="#">Random Quotes</a>
+        <a href="#">Programming Quotes</a>
+    </div>
     <div id="mainContainer" class="container-fluid">
-        <div class="row">
             <div class="col-md-12 col-xs-12 ">
                 <div id="quoteContainer"> 
                     <h1> Hello </h1>
+                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat 
+                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                        <!--
+                        <p>Test text without any real meaning. Just as it states this text has no meaning!</p>
+                        -->
+                        <div class="quoteBtnContainer">
+                            <button type="button" class="quoteBtn btn">Next quoute</button>
+                        </div>
                 </div>
-            </div>
-        </div>
     </div>
 </body>
