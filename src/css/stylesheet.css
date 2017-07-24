@@ -52,6 +52,11 @@ html, body {
   bottom:4%;
 }
 
+.openNav{
+  background-color: #908988;
+  font-family: Roboto;
+  font-size: 2em;
+}
 .openNavButton{
   position: absolute;
   top: 0;

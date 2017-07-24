@@ -4,19 +4,23 @@ $(document).ready(function(){
     var author = undefined;
     var quote = undefined;
     var quoteLink = undefined;
+    var random = true;
     var randomQuotes = "Random Quotes";
     var programmingQuotes = "Programming Quotes";
-    var random = true;
+    
+
+    //init(randomQuotes);
 
     $("#section").text(randomQuotes);
-
     $("#programmingQuotes").click(function(){
         $("#section").text(programmingQuotes);
+        getProgrammingQuote();
         random = false;
     })
 
     $("#randomQuotes").click(function(){
         $("#section").text(randomQuotes);
+        getRandomQuote();
         random = true;
     })
 
@@ -34,11 +38,18 @@ $(document).ready(function(){
 
     $(".openNavBtn").click(function(){
         $(".sideNav").css("width","25%");
+        //$("#mainContainer").css("background-color","#000001");
     });
 });
 
 //+++++++++++++++++++++ Helper functions +++++++++++++++++++++//
-function setQuote(text){
+function init(sectionName){
+    $("#section").text(randomQuotes);
+    random = true;
+    getRandomQuote();
+}
+
+    function setQuote(text){
         console.log(text);
         $("#quoteContainer p").text(text);   
     }
@@ -51,29 +62,12 @@ function setQuote(text){
             },
             dataType:"json",
             success: function(data){
-
-                if(!jQuery.isEmptyObject(data)){
-                    if(data.hasOwnProperty("quoteText")){
-                        quote = data["quoteText"];
-                    }else{
-                        quote = "Sorry no Quote for you!";
-                    }
-                    if(data.hasOwnProperty("quoteAuthor")){
-                        author = data["quoteAuthor"];
-                    }else{
-                        author = "No author";
-                    }
-                    if(data.hasOwnProperty("quoteLink")){
-                        quoteLink = data["quoteLink"];
-                    }
-
-                    setQuote(quote);
-                }else{
-                    alert("Sorry, something went wrong! Please retry");
+                if(!extractData(data,"quoteAuthor","quoteText","quoteLink")){
+                    getRandomQuote();
                 }
             },
             error: function(){
-                alert("Sorry, but something went wrong with the API");
+                alert("Sorry, but something went wrong with the API! Please try it again");
             },
             type:"GET"
         })
@@ -87,30 +81,39 @@ function setQuote(text){
             },
             dataType: "jsonp",
             success: function(data){
-                if(!jQuery.isEmptyObject(data)){
-                    if(data.hasOwnProperty("author")){
-                        author = data["author"];
-                    }else{
-                        author = "no author";
-                    }
-                    if(data.hasOwnProperty("quote")){
-                        quote = data["quote"];
-                    }else{
-                        quote = "no quote for you";
-                    }
-                    if(data.hasOwnProperty("permalink")){
-                        quoteLink = data["permalink"];
-                    }
-
-                    setQuote(quote);
-                }else{
-                    alert("Sorry, something went wrong! Please retry");
-                }
+               if(!extractData(data,"author","quote","permalink")){
+                   getProgrammingQuote();
+               }
             },
             error: function() {
-                alert("Sorry, but something went wrong");
+                alert("Sorry, but something went wrong with the API! Please try it again");
             },
             type:"GET"
         });
+    }
+
+    function extractData(data,pAuthor,pQuote,pLink){
+    if(!jQuery.isEmptyObject(data)){ 
+        if(data.hasOwnProperty(pAuthor)){
+            author = data[pAuthor];
+        }else{
+            author = "no author";
+        }
+        if(data.hasOwnProperty(pQuote)){
+            quote = data[pQuote];
+        }else{
+            quote = "no quote for you";
+        }
+        if(data.hasOwnProperty(pLink)){
+            if(quoteLink === data[pLink]){
+                return false;
+            }else{
+                quoteLink = data[pLink];
+            }     
+        }
+        setQuote(quote);
+    }else{
+        alert("Sorry, something went wrong! Please retry");
+    }
     }
 
