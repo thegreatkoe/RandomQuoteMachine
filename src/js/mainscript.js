@@ -43,11 +43,11 @@ $(document).ready(function(){
 });
 
 //+++++++++++++++++++++ Helper functions +++++++++++++++++++++//
-function init(sectionName){
-    $("#section").text(randomQuotes);
-    random = true;
-    getRandomQuote();
-}
+    function init(sectionName){
+        $("#section").text(randomQuotes);
+        random = true;
+        getRandomQuote();
+    }
 
     function setQuote(text){
         console.log(text);
@@ -62,7 +62,7 @@ function init(sectionName){
             },
             dataType:"json",
             success: function(data){
-                if(!extractData(data,"quoteAuthor","quoteText","quoteLink")){
+                if(!extractData(data,"quoteAuthor","quoteText","quoteLink",quoteLink)){
                     getRandomQuote();
                 }
             },
@@ -81,7 +81,7 @@ function init(sectionName){
             },
             dataType: "jsonp",
             success: function(data){
-               if(!extractData(data,"author","quote","permalink")){
+               if(!extractData(data,"author","quote","permalink",quoteLink)){
                    getProgrammingQuote();
                }
             },
@@ -92,7 +92,7 @@ function init(sectionName){
         });
     }
 
-    function extractData(data,pAuthor,pQuote,pLink){
+    function extractData(data,pAuthor,pQuote,pLink,pQuoteLink){
     if(!jQuery.isEmptyObject(data)){ 
         if(data.hasOwnProperty(pAuthor)){
             author = data[pAuthor];
@@ -105,7 +105,7 @@ function init(sectionName){
             quote = "no quote for you";
         }
         if(data.hasOwnProperty(pLink)){
-            if(quoteLink === data[pLink]){
+            if(pQuoteLink === data[pLink]){
                 return false;
             }else{
                 quoteLink = data[pLink];

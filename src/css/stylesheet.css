@@ -57,6 +57,10 @@ html, body {
   font-family: Roboto;
   font-size: 2em;
 }
+
+.openNav a{
+  color: white;
+}
 .openNavButton{
   position: absolute;
   top: 0;
