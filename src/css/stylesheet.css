@@ -1,11 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Pacifico');
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
 
 html, body {
   height:100%;
   width:100%;
+  background: url("../resources/background/SvnuN4M.png") no-repeat;
+  background-size: cover;
 }
 
+/*
 .sideNav{
   position:fixed;
   top:0;
@@ -30,36 +34,16 @@ html, body {
   display: block;
   transition: 0.3s;
   font-family: Roboto;
-}
-
-.closingNavBtn{
-  position:absolute;
-  top: 0;
-  right: 0;
-}
-
-.quoteBtnContainer{
-  position: relative;
-  height:5%;
-  width:100%;
-}
-.quoteBtn{
-  position: absolute;
-  background-color:black;
-  color: white; 
-  margin-top: 1%;
-  right:2%;
-  bottom:4%;
-}
+} 
 
 .openNav{
-  background-color: #908988;
+  background-color: #21618C;
   font-family: Roboto;
   font-size: 2em;
 }
 
 .openNav a{
-  color: white;
+  color:white;
 }
 .openNavButton{
   position: absolute;
@@ -67,29 +51,78 @@ html, body {
   left: 0;
 }
 
+.closingNavBtn{
+  position:absolute;
+  top: 0;
+  right: 0;
+}
+*/
+.quoteBtn{
+  position: absolute;
+  left: 1%;
+  top: 1%;
+  color: #795548  ; 
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: Roboto;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+button:hover{
+  color: grey;
+}
+
+.twitterBtn{
+  position: absolute;
+  background: url('../resources/social-twitter-icon.png') no-repeat;
+  background: transparent;
+  outline: none;
+  border:none;
+  color: #795548 ;
+  right:1%;
+  top: 1%;
+  font-family: Roboto;
+  font-weight: bold;
+  font-size: 1em;
+}
+
 #mainContainer{
   height: 100%;
   width: 100%;
-  background-color:#908988;
-  display:flex;
-  flex-direction: column;     /* stack flex items vertically */
-  justify-content: center;    /* center items vertically, in this case */
   align-items: center;  
 }
 
 #quoteContainer{
-  display:block;
+  top: 30%;
   margin: 0 auto;
   padding: 1%;
-  width: 50%;
+  left: 10%;
+  width: 60%;
   height: auto;
-  background: white;
   border-radius: 25px;
-  position: relative;
-  font-family: Roboto;
+  
 }
 
-#section{
-  font-family: Pacifico;
+p {  
+  text-align: right;
+  border: none;
+  font-family: 'Ubuntu';
+  width: 100%;
+  position: relative;
+  color: 	#F4F6F7; 
+}
+
+#quote {
+
+  font-size: 2em;
+  font-weight: bold;
+}
+
+#author {
+  font-size: 1.5em;
   font-style: italic;
 }
+
+

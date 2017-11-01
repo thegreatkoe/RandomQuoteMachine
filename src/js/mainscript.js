@@ -1,37 +1,33 @@
+var quoteLink = "undefined";
+var author = undefined;
+var quote = undefined;
+
 $(document).ready(function(){
-
+ 
     
-    var author = undefined;
-    var quote = undefined;
-    var quoteLink = undefined;
-    var random = true;
-    var randomQuotes = "Random Quotes";
     var programmingQuotes = "Programming Quotes";
-    
 
-    //init(randomQuotes);
 
-    $("#section").text(randomQuotes);
+    init(programmingQuotes);
+
+    /*$("#section").text(randomQuotes);
     $("#programmingQuotes").click(function(){
         $("#section").text(programmingQuotes);
-        getProgrammingQuote();
+        getProgrammingQuote(quoteLink);
         random = false;
     })
 
     $("#randomQuotes").click(function(){
         $("#section").text(randomQuotes);
-        getRandomQuote();
+        getRandomQuote(quoteLink);
         random = true;
-    })
+    })*/
 
     $(".quoteBtn").click(function(){
-        if(random){
-            getRandomQuote();
-        }else{
-            getProgrammingQuote();
-        }
+        getProgrammingQuote(quoteLink);
     });
 
+    /*
     $(".closingNavBtn").click(function(){
         $(".sideNav").css("width","0");
     });
@@ -40,21 +36,26 @@ $(document).ready(function(){
         $(".sideNav").css("width","25%");
         //$("#mainContainer").css("background-color","#000001");
     });
+    */
+
+    $(".twitterBtn").click(function(){
+        tweetCurrentQuote(quote,author)
+    });
 });
 
 //+++++++++++++++++++++ Helper functions +++++++++++++++++++++//
-    function init(sectionName){
-        $("#section").text(randomQuotes);
-        random = true;
-        getRandomQuote();
+    function init(text){
+        $("#section").text(text);
+        getProgrammingQuote(quoteLink);
     }
 
-    function setQuote(text){
+    function setQuote(text,author){
         console.log(text);
-        $("#quoteContainer p").text(text);   
+        $("#quote").text(text);
+        $("#author").text("-" + author);   
     }
 
-    function getRandomQuote(){
+ /*   function getRandomQuote(pQuoteLink){
         $.ajax({
             url:"http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en",
             data:{
@@ -62,8 +63,8 @@ $(document).ready(function(){
             },
             dataType:"json",
             success: function(data){
-                if(!extractData(data,"quoteAuthor","quoteText","quoteLink",quoteLink)){
-                    getRandomQuote();
+                if(!extractData(data,"quoteAuthor","quoteText","quoteLink",pQuoteLink)){
+                    getRandomQuote(quoteLink);
                 }
             },
             error: function(){
@@ -71,9 +72,10 @@ $(document).ready(function(){
             },
             type:"GET"
         })
-    }
+    } */
 
-    function getProgrammingQuote(){
+
+    function getProgrammingQuote(pQuoteLink){
         $.ajax({
             url:"http://quotes.stormconsultancy.co.uk/random.json",
             data:{
@@ -81,8 +83,8 @@ $(document).ready(function(){
             },
             dataType: "jsonp",
             success: function(data){
-               if(!extractData(data,"author","quote","permalink",quoteLink)){
-                   getProgrammingQuote();
+               if(!extractData(data,"author","quote","permalink",pQuoteLink)){
+                   getProgrammingQuote(quoteLink);
                }
             },
             error: function() {
@@ -92,28 +94,52 @@ $(document).ready(function(){
         });
     }
 
-    function extractData(data,pAuthor,pQuote,pLink,pQuoteLink){
+    function extractData(data,quoteAuthor,quoteText,quoteLink,permaLink){
     if(!jQuery.isEmptyObject(data)){ 
-        if(data.hasOwnProperty(pAuthor)){
-            author = data[pAuthor];
+        if(data.hasOwnProperty(quoteAuthor)){
+            if(data[quoteAuthor].length == 0){
+                author = "unknown author";
+            }else{
+                author = data[quoteAuthor];
+            }   
         }else{
-            author = "no author";
+            author = "unknown author";
         }
-        if(data.hasOwnProperty(pQuote)){
-            quote = data[pQuote];
+        if(data.hasOwnProperty(quoteText)){
+            if(!checkLength(data[quoteText],author)){
+                return false;
+            }
+            quote = data[quoteText];
         }else{
             quote = "no quote for you";
         }
-        if(data.hasOwnProperty(pLink)){
-            if(pQuoteLink === data[pLink]){
+        if(data.hasOwnProperty(quoteLink)){
+            if(permaLink === data[quoteLink]){
+                console.log("Same Quote as before - skipped it");
                 return false;
             }else{
-                quoteLink = data[pLink];
+                quoteLink = data[quoteLink];
+                console.log("Set quoteLink to: " + quoteLink);
             }     
         }
-        setQuote(quote);
+        setQuote(quote,author);
+        return true;
     }else{
         alert("Sorry, something went wrong! Please retry");
+        }
     }
+
+    function tweetCurrentQuote(quoteText,author){
+        var tweet = "https://\ttwitter.com/intent/tweet?text=" + encodeURIComponent(quoteText + " -" + author);
+        window.open(tweet,"_blank");
+    }
+
+    function checkLength(quoteText,authorText){
+        if((quoteText.length + authorText.length + 2) > 140){
+            console.log("Quote has more than 140 characters and therefore is skipped");
+            return false;
+        }else{
+            return true;
+        }
     }
 
